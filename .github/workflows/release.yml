@@ -1,0 +1,11 @@
+name: 🚀 Release + Publish
+
+on: [workflow_dispatch]
+
+# Empty shell — add your own release steps here.
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Add your release steps here."

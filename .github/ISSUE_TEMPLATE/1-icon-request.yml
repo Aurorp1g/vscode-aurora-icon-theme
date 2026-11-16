@@ -1,0 +1,59 @@
+name: 🏞️ 图标需求
+description: 申请添加特定的图标
+title: "[Icon Request]: <icon_name>"
+labels: ["icon-request"]
+
+body:
+  - type: checkboxes
+    id: icon-type
+    attributes:
+      label: 图标类型
+      description: 你申请的是哪种类型的图标？
+      options:
+        - label: 📁 文件夹
+        - label: 📄 文件
+
+  - type: textarea
+    id: folder-names
+    attributes:
+      label: 文件夹名称
+      description: 如果你申请的是文件夹图标，请在此列出文件夹名称。
+      placeholder: |
+        - folder-name
+        - another-folder-name
+        - ...
+
+  - type: textarea
+    id: file-names
+    attributes:
+      label: 文件名称
+      description: 如果你申请的是文件图标，请在此列出文件名或文件扩展名。
+      placeholder: |
+        - file-name
+        - another-file-name
+        - ...
+
+  - type: textarea
+    id: graphic-ideas
+    attributes:
+      label: 图形构想
+      description: |
+        请清晰描述你希望得到的图标。
+        如果文件夹和文件需要不同的图标，请分别创建 Issue。
+      placeholder: 如有可能，请附上示例图标的链接
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 补充信息
+      description: 在此补充关于这些图标的其他信息。
+      placeholder: 我认为需要这些图标，因为……
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 行为准则
+      description: 提交此 Issue 即表示你同意遵守我们的[行为准则](../../CODE_OF_CONDUCT.md)。
+      options:
+        - label: 我同意遵守本项目的**行为准则**
+          required: true

@@ -1351,6 +1351,10 @@ export const folderIcons: FolderTheme[] = [
         light: true,
       },
       {
+        name: 'folder-trae',
+        folderNames: ['trae'],
+      },
+      {
         name: 'folder-gemini-ai',
         folderNames: ['gemini', 'gemini-ai', 'geminiai'],
       },

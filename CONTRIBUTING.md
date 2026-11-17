@@ -16,6 +16,7 @@
     - [以 SVG 创建图标](#以-svg-创建图标)
     - [已知图标来源](#已知图标来源)
     - [使用 Material Design 配色](#使用-material-design-配色)
+    - [应用图标渐变](#应用图标渐变)
     - [设计文件夹图标](#设计文件夹图标)
     - [图标留白](#图标留白)
     - [关联到文件名、文件夹名与语言 ID](#关联到文件名文件夹名与语言-id)
@@ -76,9 +77,10 @@ flowchart LR
 
 1. [ ] 以 SVG 创建图标（[操作方法](#以-svg-创建图标)）
 2. [ ] 图标颜色符合 Material Design 规范（[操作方法](#使用-material-design-配色)）
-3. [ ] SVG 在图标周围留有一定空间（[操作方法](#图标留白)）
-4. [ ] 唯一地关联到文件名与文件夹名称（[操作方法](#关联到文件名文件夹名与语言-id)）
-5. [ ] 如有必要，为不同配色主题分别提供图标（[操作方法](#适配配色主题的图标)）
+3. [ ] 图标应用了同色系渐变（[操作方法](#应用图标渐变)）
+4. [ ] SVG 在图标周围留有一定空间（[操作方法](#图标留白)）
+5. [ ] 唯一地关联到文件名与文件夹名称（[操作方法](#关联到文件名文件夹名与语言-id)）
+6. [ ] 如有必要，为不同配色主题分别提供图标（[操作方法](#适配配色主题的图标)）
 
 ### 克隆工作流程
 
@@ -112,16 +114,29 @@ flowchart LR
 
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-  <path id="folder" fill="#COLOR" d="m6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232"/>
-  <path id="motive" fill="#MOTIVE_COLOR" d="...your motive path..."/>
+  <defs>
+    <linearGradient id="folderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#COLOR_HIGHLIGHT"/>
+      <stop offset="50%" stop-color="#COLOR"/>
+      <stop offset="100%" stop-color="#COLOR_SHADOW"/>
+    </linearGradient>
+    <linearGradient id="motiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#MOTIVE_HIGHLIGHT"/>
+      <stop offset="50%" stop-color="#MOTIVE_COLOR"/>
+      <stop offset="100%" stop-color="#MOTIVE_SHADOW"/>
+    </linearGradient>
+  </defs>
+  <path id="folder" fill="url(#folderGradient)" d="m6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232"/>
+  <path id="motive" fill="url(#motiveGradient)" d="...your motive path..."/>
 </svg>
 ```
 
 要求：
 
 - **viewBox** 必须为 `0 0 16 16`
-- **第一个元素**必须是带 `id="folder"` 的 `<path>`，并使用上文给出的标准文件夹路径（只有 `fill` 颜色可变）
+- **第一个元素**必须是带 `id="folder"` 的 `<path>`，并使用上文给出的标准文件夹路径（只有 `fill` 渐变引用可变，路径 `d` 不得修改）
 - **图形元素**必须带 `id="motive"`——可以是单个 `<path>`，也可以是包裹多个路径的 `<g>`
+- **使用渐变填充**——`fill` 通过 `url(#渐变ID)` 引用 `<defs>` 中定义的渐变，具体规则见[应用图标渐变](#应用图标渐变)
 - **不要提供 `-open.svg` 文件**——不要提交打开状态的变体，它们会自动生成
 - **不要包含 Inkscape/Sodipodi 元数据**——提交前请清理 SVG
 
@@ -129,10 +144,27 @@ flowchart LR
 
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-  <path id="folder" fill="#COLOR" d="m6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232"/>
+  <defs>
+    <linearGradient id="folderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#COLOR_HIGHLIGHT"/>
+      <stop offset="50%" stop-color="#COLOR"/>
+      <stop offset="100%" stop-color="#COLOR_SHADOW"/>
+    </linearGradient>
+    <linearGradient id="motiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#MOTIVE_HIGHLIGHT"/>
+      <stop offset="50%" stop-color="#MOTIVE_COLOR"/>
+      <stop offset="100%" stop-color="#MOTIVE_SHADOW"/>
+    </linearGradient>
+    <linearGradient id="motiveGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ANOTHER_HIGHLIGHT"/>
+      <stop offset="50%" stop-color="#ANOTHER_COLOR"/>
+      <stop offset="100%" stop-color="#ANOTHER_SHADOW"/>
+    </linearGradient>
+  </defs>
+  <path id="folder" fill="url(#folderGradient)" d="m6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232"/>
   <g id="motive">
-    <path fill="#MOTIVE_COLOR" d="..."/>
-    <path fill="#ANOTHER_COLOR" d="..."/>
+    <path fill="url(#motiveGradient)" d="..."/>
+    <path fill="url(#motiveGradient2)" d="..."/>
   </g>
 </svg>
 ```
@@ -162,15 +194,52 @@ flowchart LR
 | :-: | :-: |
 | <img src="./images/how-tos/svg-with-spacing.png" alt="颜色正确的图标" width="200px" /> | <img src="./images/how-tos/svg-with-wrong-color.png" alt="颜色错误的图标" width="200px" /> |
 
+### 应用图标渐变
+
+本项目所有图标都使用统一的渐变样式，模拟左上角光源的打光效果：**左上角最亮，右下角最深**。请遵循以下规则：
+
+1. **路径完全不动，仅修改填充**：所有 `<path>` 的 `d` 属性必须原样保留，禁止改动坐标，只把 `fill` 值替换为渐变引用 `url(#渐变ID)`。
+2. **以原图底色为色相根基**：读取每个 path 的原始 `fill` 色值作为基准色，在**同一色相**内做提亮与加深，禁止跳到完全无关的色系。
+   - 左上角 `offset="0%"`：同色相提亮（高光）；
+   - 中间 `offset="50%"`：保留原图基准色；
+   - 右下角 `offset="100%"`：同色相加深（暗部，允许轻微邻近色偏移）。
+3. **固定渐变方向**：`x1="0%" y1="0%" x2="100%" y2="100%"`，保证左上亮、右下暗。
+4. **分层独立处理**：多层多 path 图标，每一层都基于自身原始底色生成独立渐变，并分配唯一渐变 ID。主体图形可设置适中明暗差；**细小装饰／徽章元素必须压低明暗反差**，防止 16px 下细节糊掉。
+5. **渐变统一收纳在 defs**：所有 `<linearGradient>` 写在 `<defs>` 内，放在所有 path 标签之前。
+
+通用模板：
+
+```svg
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="GradId" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="【同色相提亮高光】"/>
+      <stop offset="50%" stop-color="【原图基准色】"/>
+      <stop offset="100%" stop-color="【同色相加深暗部】"/>
+    </linearGradient>
+  </defs>
+  <!-- d 原样复制，仅 fill 引用渐变 ID -->
+  <path d="原始 d 字符串" fill="url(#GradId)"/>
+</svg>
+```
+
+> [!WARNING]
+> 请务必避免以下做法：
+> - ❌ 修改 path 的 `d` 路径字符串，改动图标轮廓坐标
+> - ❌ 脱离原图底色，直接选用完全无关色系做渐变
+> - ❌ 16px 小图标高光过度接近纯白、暗部颜色过重，造成轮廓糊掉
+> - ❌ 多层 path 共用同一个渐变 ID
+> - ❌ 将 `linearGradient` 放到 `defs` 之外，或写在 path 标签之后
+
 ### 设计文件夹图标
 
 设计文件夹图标时也有几点需要考虑。文件夹图标始终由两部分组成——背景中的文件夹形状，以及前景中的图形元素：
 
 <img src="./images/how-tos/folder-icon-parts.svg" alt="文件夹示例" width="300px" />
 
-文件夹形状（`id="folder"`）使用标准路径，不得修改——只能更改它的 `fill` 颜色。图形元素（`id="motive"`）才是你图标中富有辨识度的部分。
+文件夹形状（`id="folder"`）使用标准路径，不得修改——只能更改它的 `fill` 渐变引用。图形元素（`id="motive"`）才是你图标中富有辨识度的部分。
 
-图形元素只允许使用[调色板](https://aurorp1g.github.io/material-color-converter/)中第二行的颜色。背景则选择稍深一些的色相（通常是调色板的第 4-6 行）。
+图形元素只允许使用[调色板](https://aurorp1g.github.io/material-color-converter/)中第二行的颜色。背景则选择稍深一些的色相（通常是调色板的第 4-6 行）。选定的颜色作为渐变基准色，再按[应用图标渐变](#应用图标渐变)一节生成左上高光 → 右下暗部的同色系渐变。
 
 <img src="./images/how-tos/pick-folder-colors.png" alt="Material 调色板" width="500px" />
 

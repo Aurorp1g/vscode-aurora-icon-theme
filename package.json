@@ -19,6 +19,7 @@
     "generateOpenFolders": "tsx ./src/scripts/svg/generateOpenFolderIcons.ts",
     "lint": "biome check",
     "format": "biome format --write ./src",
+    "preview": "tsx ./src/scripts/preview/run.ts",
     "svgo": "svgo -i icons -o icons -q",
     "vscode:prepublish": "npm run lint && npm run build",
     "verify": "sheriff verify"
@@ -460,11 +461,13 @@
     "@vscode/vsce": "^4.1.1",
     "cheerio": "^1.2.0",
     "esbuild": "^0.28.2",
+    "puppeteer": "^25.17.0",
     "svgo": "^4.0.2",
     "tsx": "^4.23.12",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
   },
   "allowScripts": {
-    "esbuild@0.28.2": true
+    "esbuild@0.28.2": true,
+    "puppeteer@25.11.0": true
   }
 }

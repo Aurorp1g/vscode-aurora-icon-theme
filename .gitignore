@@ -11,6 +11,9 @@ node_modules
 .vscode-test/**
 *.vsix
 
+# Ignore generated preview HTML files
+src/scripts/preview/*.html
+
 # Ignore specific icon files and directories
 icons/file.svg
 icons/folder.svg

@@ -2,7 +2,7 @@
   "name": "aurora-icon-theme",
   "displayName": "Aurora Icon Theme",
   "description": "Aurora Icon Theme for Visual Studio Code",
-  "version": "5.40.0",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "scripts": {

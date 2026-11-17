@@ -1,3 +1,4 @@
+import chroma from 'chroma-js';
 import { getFileConfigHash } from '../helpers/configHash';
 import { merge } from '../helpers/object';
 import { logger } from '../logging/logger';
@@ -434,6 +435,38 @@ const getCustomIcons = (
   });
 };
 
+/** Contrast applied to the main folder body gradient stops. */
+const MAIN_GRADIENT_STRENGTH = 0.2;
+/** Contrast applied to small decorative elements, kept lower to preserve detail. */
+const DECORATIVE_GRADIENT_STRENGTH = 0.12;
+
+/**
+ * Build a top-left (light) → bottom-right (dark) linear gradient based on the
+ * provided base color, keeping the original color in the middle.
+ *
+ * @param id - The unique gradient identifier.
+ * @param base - The original base color to derive the gradient from.
+ * @param strength - The amount of lighten/darken applied to the gradient stops.
+ * @returns The `<linearGradient>` markup.
+ */
+const buildFolderGradient = (
+  id: string,
+  base: string,
+  strength: number
+): string => {
+  const color = chroma(base);
+  const light = color.mix('white', strength).hex();
+  const dark = color.mix('black', strength).hex();
+
+  return (
+    `<linearGradient id="${id}" x1="0%" y1="0%" x2="100%" y2="100%">` +
+    `<stop offset="0%" stop-color="${light}"/>` +
+    `<stop offset="50%" stop-color="${color.hex()}"/>` +
+    `<stop offset="100%" stop-color="${dark}"/>` +
+    `</linearGradient>`
+  );
+};
+
 /**
  * Generate the folder icons with the specified color, opacity, and saturation.
  *
@@ -450,6 +483,14 @@ export const generateFolderIcons = async (
     return logger.error('Invalid color code for folder icons');
   }
 
+  const folderGradient = `<defs>
+    <linearGradient id="folderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="55%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#F4511E"/>
+    </linearGradient>
+  </defs>`;
+
   const folderIcon =
     'm6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232';
   const folderIconOpen =
@@ -457,13 +498,13 @@ export const generateFolderIcons = async (
 
   await writeSVGFiles(
     'folder',
-    getSVG(getPath(folderIcon, color)),
+    getSVG(folderGradient + getPath(folderIcon, 'url(#folderGradient)')),
     opacity,
     saturation
   );
   await writeSVGFiles(
     'folder-open',
-    getSVG(getPath(folderIconOpen, color)),
+    getSVG(folderGradient + getPath(folderIconOpen, 'url(#folderGradient)')),
     opacity,
     saturation
   );
@@ -485,18 +526,32 @@ export const generateRootFolderIcons = async (
     return logger.error('Invalid color code for root folder icons');
   }
 
-  const rootFolderIconOuter = `<circle cx="8" cy="8" r="6" fill="none" stroke="${color}" stroke-width="2"/>`;
-  const rootFolderIconInner = `<circle cx="8" cy="8" r="3" fill="${color}"/>`;
+  const outerGradient = buildFolderGradient(
+    'folderRootGradient',
+    color,
+    MAIN_GRADIENT_STRENGTH
+  );
+  const innerGradient = buildFolderGradient(
+    'folderRootGradientInner',
+    color,
+    DECORATIVE_GRADIENT_STRENGTH
+  );
+
+  const defs = `<defs>${outerGradient}${innerGradient}</defs>`;
+  const rootFolderIconOuter = `<circle cx="8" cy="8" r="6" fill="none" stroke="url(#folderRootGradient)" stroke-width="2"/>`;
+  const rootFolderIconInner = `<circle cx="8" cy="8" r="3" fill="url(#folderRootGradientInner)"/>`;
 
   await writeSVGFiles(
     'folder-root',
-    getSVG(rootFolderIconOuter + rootFolderIconInner),
+    getSVG(defs + rootFolderIconOuter + rootFolderIconInner),
     opacity,
     saturation
   );
+
+  const openDefs = `<defs>${outerGradient}</defs>`;
   await writeSVGFiles(
     'folder-root-open',
-    getSVG(rootFolderIconOuter),
+    getSVG(openDefs + rootFolderIconOuter),
     opacity,
     saturation
   );

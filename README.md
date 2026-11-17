@@ -331,8 +331,6 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 感谢我们所有出色的贡献者！
 你们的支持让 Aurora Icon Theme 变得更好，惠及每一个人。
 
-[![贡献者](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/contributors.png)](https://github.com/aurorp1g/vscode-aurora-icon-theme/graphs/contributors)
-
 ## 参与贡献
 
 我们欢迎各种形式的贡献！无论你想添加新图标、改进文档、修复缺陷，还是协助翻译，我们都非常感谢你的投入。

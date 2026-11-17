@@ -8,6 +8,7 @@ import type { FolderIcon } from '../models/icons/folders/folderIcon';
 import type { FolderTheme } from '../models/icons/folders/folderTheme';
 import type { IconPackValue } from '../models/icons/iconPack';
 import type { Manifest } from '../models/manifest';
+import { defaultColor } from './config/defaultConfig';
 import {
   cloneIconExtension,
   highContrastColorFileEnding,
@@ -439,6 +440,12 @@ const getCustomIcons = (
 const MAIN_GRADIENT_STRENGTH = 0.2;
 /** Contrast applied to small decorative elements, kept lower to preserve detail. */
 const DECORATIVE_GRADIENT_STRENGTH = 0.12;
+/** Default folder gradient, used while the folder color stays at its default value. */
+const DEFAULT_FOLDER_GRADIENT = `<linearGradient id="folderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="55%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#F4511E"/>
+    </linearGradient>`;
 
 /**
  * Build a top-left (light) → bottom-right (dark) linear gradient based on the
@@ -483,13 +490,11 @@ export const generateFolderIcons = async (
     return logger.error('Invalid color code for folder icons');
   }
 
-  const folderGradient = `<defs>
-    <linearGradient id="folderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFEE58"/>
-      <stop offset="55%" stop-color="#FFA726"/>
-      <stop offset="100%" stop-color="#F4511E"/>
-    </linearGradient>
-  </defs>`;
+  const folderGradient =
+    color.toLowerCase() === defaultColor
+      ? DEFAULT_FOLDER_GRADIENT
+      : buildFolderGradient('folderGradient', color, MAIN_GRADIENT_STRENGTH);
+  const defs = `<defs>${folderGradient}</defs>`;
 
   const folderIcon =
     'm6.922 3.768-.644-.536A1 1 0 0 0 5.638 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7.562a1 1 0 0 1-.64-.232';
@@ -498,13 +503,13 @@ export const generateFolderIcons = async (
 
   await writeSVGFiles(
     'folder',
-    getSVG(folderGradient + getPath(folderIcon, 'url(#folderGradient)')),
+    getSVG(defs + getPath(folderIcon, 'url(#folderGradient)')),
     opacity,
     saturation
   );
   await writeSVGFiles(
     'folder-open',
-    getSVG(folderGradient + getPath(folderIconOpen, 'url(#folderGradient)')),
+    getSVG(defs + getPath(folderIconOpen, 'url(#folderGradient)')),
     opacity,
     saturation
   );

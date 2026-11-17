@@ -875,6 +875,10 @@ export const folderIcons: FolderTheme[] = [
           'dependencies',
         ],
       },
+      {
+        name: 'folder-scaffolds',
+        folderNames: ['scaffolds', 'scaffold', 'scaffolding'],
+      },
       { name: 'folder-shared', folderNames: ['shared', 'common'] },
       {
         name: 'folder-shader',

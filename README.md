@@ -6,20 +6,6 @@
 
 <p align="center"><em>适用于 Visual Studio Code 的 Material Design 图标</em></p>
 
-<p align="center">
-  <a href="https://github.com/aurorp1g/vscode-aurora-icon-theme"><img src="https://img.shields.io/github/stars/aurorp1g/vscode-aurora-icon-theme?style=for-the-badge&colorA=263238&colorB=1976D2&label=Star%20on%20GitHub" alt="在 GitHub 上点星"></a>
-</p>
-
-<br />
-
-
-<p align="center">喜欢 Aurora Icon Theme？欢迎点星或成为赞助者来支持这个项目！</p>
-
-<p align="center">
-  <a href="https://github.com/sponsors/aurorp1g"><img src="https://img.shields.io/badge/Sponsor-GitHub-blue?logo=github-sponsors&style=for-the-badge&colorA=263238&colorB=EC407A" alt="在 GitHub 上赞助"></a>
-  <a href="https://github.com/aurorp1g/vscode-aurora-icon-theme"><img src="https://img.shields.io/github/stars/aurorp1g/vscode-aurora-icon-theme?style=for-the-badge&label=Star%20on%20GitHub&colorA=263238&colorB=1976D2" alt="在 GitHub 上点星"></a>
-</p>
-
 <br />
 
 ### 文件图标
@@ -32,8 +18,15 @@
 
 <br />
 
+## 关于本项目
+
+Aurora Icon Theme 派生自 [Material Icon Theme](https://github.com/material-extensions/vscode-material-icon-theme)，原项目由 [Philipp Kief](https://github.com/PKief) 创建。本项目面向中文用户进行了本地化与个人化调整，并为文件夹图标引入了独特的渐变配色，仅通过 GitHub 发布。
+
+> 感谢原项目及其全体贡献者，详见[致谢](#致谢)。
+
 ## 目录
 
+- [关于本项目](#关于本项目)
 - [功能特性](#功能特性)
 - [快速开始](#快速开始)
 - [自定义](#自定义)
@@ -41,11 +34,12 @@
 - [图标来源](#图标来源)
 - [贡献者](#贡献者)
 - [参与贡献](#参与贡献)
-- [相关扩展](#相关扩展)
+- [致谢](#致谢)
 
 ## 功能特性
 
 - 为 VS Code 提供 Material Design 风格的文件与文件夹图标
+- 文件夹图标采用独特的渐变配色（左上高光 → 中间原色 → 右下暗部），相比原项目的纯色设计更具立体感与辨识度
 - 可自定义颜色、不透明度与饱和度
 - 支持图标包与主题
 - 支持自定义图标关联与图标克隆
@@ -68,9 +62,7 @@
 
 ### 自定义文件与文件夹颜色
 
-你可以通过命令面板修改默认文件和文件夹图标的颜色：
-
-![自定义文件夹颜色](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/set-folder-color.gif)
+你可以通过命令面板修改默认文件和文件夹图标的颜色：打开命令面板（`Ctrl+Shift+P`，macOS 上为 `Cmd+Shift+P`），输入 `Aurora Icons: Change Folder Color` 或 `Aurora Icons: Change File Color`，然后从色板中选择想要的颜色即可。
 
 也可以通过用户设置修改：
 
@@ -81,9 +73,7 @@
 
 ### 文件夹主题
 
-你可以通过命令面板修改文件夹图标的设计：
-
-![文件夹主题](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/set-folder-theme.gif)
+你可以通过命令面板修改文件夹图标的设计：打开命令面板（`Ctrl+Shift+P`，macOS 上为 `Cmd+Shift+P`），输入 `Aurora Icons: Change Folder Theme`，在 `specific`、`classic`、`none` 三种样式之间切换即可。
 
 也可以通过用户设置修改：
 
@@ -174,8 +164,6 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 
 这会创建两个新图标 `rust-mod` 和 `rust-lib`，分别关联到文件名 `mod.rs` 和 `lib.rs`。`base` 属性定义要克隆的图标（此处为 `rust` 图标）。`color` 属性定义新图标的颜色。`lightColor` 属性是可选的，用于定义 Visual Studio Code 使用浅色主题时图标的颜色。`fileNames` 属性定义应关联到新图标的文件名。此外还有 `fileExtensions` 属性，可用于把新图标关联到文件扩展名（`"fileExtensions": ["ext", "ext2"]`）。
 
-![克隆的文件图标](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/how-tos/cloned-file-icons-example.png)
-
 - 虽然 `color` 和 `lightColor` 属性可以使用任意 `#RRGGBB` 颜色，但如果你想沿用 Material 调色板中的颜色，可以在 [materialPalette.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/generator/clones/utils/color/materialPalette.ts) 中查看允许使用的别名完整列表。
 - 你可以在 [fileIcons.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/icons/fileIcons.ts) 中查看可用作 `base` 的图标完整列表。
 
@@ -238,8 +226,6 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 
 这会创建两个新图标 `users-admin` 和 `roles-admin`，分别关联到文件夹名称 `users` 和 `roles`。`base` 属性定义要克隆的图标（此处为 `admin` 文件夹图标）。`color` 属性定义新图标的颜色。`lightColor` 属性是可选的，用于定义 Visual Studio Code 使用浅色主题时图标的颜色。`folderNames` 属性定义应关联到新图标的文件夹名称。`rootFolderNames` 属性定义应关联到新图标的根文件夹名称。
 
-![克隆的文件夹图标](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/how-tos/cloned-folder-icons-example.png)
-
 - 虽然 `color` 和 `lightColor` 属性可以使用任意 `#RRGGBB` 颜色，但如果你想沿用 Material 调色板中的颜色，可以在 [materialPalette.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/generator/clones/utils/color/materialPalette.ts) 中查看允许使用的别名完整列表。
 - 你可以在 [folderIcons.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/icons/folderIcons.ts) 中查看可用作 `base` 的图标完整列表。
 
@@ -294,16 +280,12 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 
 这会创建一个新图标 `ahk-clone`，关联到语言 ID `ahk2`。`base` 属性定义要克隆的图标（此处为 `autohotkey` 语言图标）。`color` 属性定义新图标的颜色。`lightColor` 属性是可选的，用于定义 Visual Studio Code 使用浅色主题时图标的颜色。`ids` 属性定义应关联到新图标的语言 ID。
 
-![克隆的语言图标](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/how-tos/cloned-language-icons-example.png)
-
 - 虽然 `color` 和 `lightColor` 属性可以使用任意 `#RRGGBB` 颜色，但如果你想沿用 Material 调色板中的颜色，可以在 [materialPalette.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/generator/clones/utils/color/materialPalette.ts) 中查看允许使用的别名完整列表。
 - 你可以在 [fileIcons.ts](https://github.com/aurorp1g/vscode-aurora-icon-theme/blob/main/src/core/icons/fileIcons.ts) 中查看可用作 `base` 的图标完整列表。
 
 ## 命令
 
-按 `Ctrl-Shift-P` 打开命令面板，然后输入 `Aurora Icons`。
-
-![命令](https://raw.githubusercontent.com/aurorp1g/vscode-aurora-icon-theme/main/images/commandPalette.png)
+按 `Ctrl-Shift-P` 打开命令面板，然后输入 `Aurora Icons`，即可看到下方列出的所有命令。
 
 ### 命令列表
 
@@ -349,6 +331,17 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 - 🌍 **协助翻译**
   通过编辑 `src/core/i18n/translations/` 和 `package.nls.*.json` 中的文件来改进或新增翻译。
 
+## 致谢
+
+本项目派生自 [Material Icon Theme](https://github.com/material-extensions/vscode-material-icon-theme)，一个由 [Philipp Kief](https://github.com/PKief) 创建的开源图标主题。
+
+特别感谢：
+
+- **Philipp Kief** —— 创建并维护 Material Icon Theme，为本项目提供了图标设计、代码架构与灵感。
+- **Material Icon Theme 的全体贡献者** —— 他们的图标、翻译与持续改进，才让本项目得以诞生。
+
+本项目与原项目同样采用 [MIT 许可证](LICENSE) 开源，谨向原项目作者及社区致以诚挚谢意。
+
 ---
 
 <p align="center">
@@ -358,4 +351,3 @@ _注意：自定义文件名在设置中配置时不能带 `.svg` 后缀，如�
 <p align="center">
   <em>喜欢 Aurora Icon Theme？欢迎点星或成为赞助者来支持这个项目！</em>
 </p>
-

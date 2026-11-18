@@ -858,6 +858,7 @@ export const folderIcons: FolderTheme[] = [
         folderNames: ['mail', 'mails', 'email', 'emails', 'smtp', 'mailers'],
       },
       { name: 'folder-mappings', folderNames: ['mappings', 'mapping'] },
+      { name: 'folder-maven', folderNames: ['maven', 'mvn'] },
       { name: 'folder-meta', folderNames: ['meta', 'metadata'] },
       {
         name: 'folder-changesets',

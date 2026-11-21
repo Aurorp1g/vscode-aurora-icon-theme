@@ -1358,6 +1358,7 @@ export const fileIcons: FileIcons = {
     },
     { name: 'perl', fileExtensions: ['pm', 'raku', 'pod', 'psgi', 't'] },
     { name: 'haxe', fileExtensions: ['hx'] },
+    { name: 'spec', fileExtensions: ['spec'] },
     {
       name: 'test-ts',
       fileExtensions: [
